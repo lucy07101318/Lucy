@@ -1,7 +1,7 @@
 
      
       / User service UUID: Change this to your generated service UUID
-const USER_SERVICE_UUID         = '91E4E176-D0B9-464D-9FE4-52EE3E9F1552'; // LED, Button
+const USER_SERVICE_UUID         = 'BF1F9B15-95D6-4029-B4C5-5F950916280C'; // LED, Button
 // User service characteristics
 const LED_CHARACTERISTIC_UUID   = 'E9062E71-9E62-4BC6-B0D3-35CDCD9B027B';
 const BTN_CHARACTERISTIC_UUID   = '62FBD229-6EDD-4D1A-B554-5C4E1BB29169';
@@ -65,6 +65,15 @@ function uiToggleStateButton(pressed) {
         el.classList.remove("pressed");
         el.innerText = "Released";
     }
+}
+
+fuction utTemp(val){
+     const el = document.getElementById("temp-val");
+     el.innerText = val;
+}
+fuction utHumid(val){
+     const el = document.getElementById("humid-val");
+     el.innerText = val;
 }
 
 function uiToggleDeviceConnected(connected) {
@@ -248,6 +257,7 @@ function liffGetButtonStateCharacteristic(characteristic) {
     characteristic.startNotifications().then(() => {
         characteristic.addEventListener('characteristicvaluechanged', e => {
             const val = (new Uint8Array(e.target.value.buffer))[0];
+             uiTemp(val);
             if (val > 0) {
                 // press
                 uiToggleStateButton(true);
