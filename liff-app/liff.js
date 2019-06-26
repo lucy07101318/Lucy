@@ -67,11 +67,11 @@ function uiToggleStateButton(pressed) {
     }
 }
 
-fuction utTemp(val){
+fuction uiTemp(val){
      const el = document.getElementById("temp-val");
      el.innerText = val;
 }
-fuction utHumid(val){
+fuction uiHumid(val){
      const el = document.getElementById("humid-val");
      el.innerText = val;
 }
