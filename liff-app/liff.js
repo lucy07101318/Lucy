@@ -39,7 +39,7 @@ function handlerToggleLed() {
 
 function uiToggleLedButton(state) {
     const el = document.getElementById("btn-led-toggle");
-    el.innerText = state ? "Switch LED OFF" : "Switch LED ON";
+    el.innerText = state ? "Switch FAN OFF" : "Switch FAN ON";
 
     if (state) {
       el.classList.add("led-on");
@@ -67,13 +67,15 @@ function uiToggleStateButton(pressed) {
     }
 }
 
-fuction uiTemp(val){
-     const el = document.getElementById("temp-val");
-     el.innerText = val;
+function uiTemp(val) {
+	const el = document.getElementById("temp-val");
+	   el.innerText = val;
+	   
 }
-fuction uiHumid(val){
-     const el = document.getElementById("humid-val");
-     el.innerText = val;
+function uiHumid(val2) {
+	const el = document.getElementById("humid-val");
+	   el.innerText = val2;
+	   
 }
 
 function uiToggleDeviceConnected(connected) {
@@ -259,6 +261,18 @@ function liffGetButtonStateCharacteristic(characteristic) {
             const val = (new Uint8Array(e.target.value.buffer))[0];
              uiTemp(val);
             if (val > 0) {
+                // press
+                uiToggleStateButton(true);
+            } else {
+                // release
+                uiToggleStateButton(false);
+                uiCountPressButton();
+            }
+        });
+		characteristic.addEventListener('characteristicvaluechanged', f => {
+            const val2 = (new Uint8Array(f.target.value.buffer))[0];
+			uiHumid(val2);
+			if (val2 > 0) {
                 // press
                 uiToggleStateButton(true);
             } else {
